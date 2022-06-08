@@ -22,7 +22,7 @@ if uploaded_file:
     )
     st.dataframe(input_df)
     st.write('')
-    rfm = pickle.load( open( "ran_forest_mod.p", "rb" ) )
+    rfm = pickle.load( open( "modelsy.pkl", "rb" ) )
 
     X = input_df.drop(labels = ['CMemNo'], axis = 1)
 
