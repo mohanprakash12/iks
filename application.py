@@ -10,10 +10,6 @@ import base64
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
-image = Image.open('image.png')
-
-st.image(image, caption='Enter any caption here')
-
 st.write('''# *customer payment Predictor*''')
   
 uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
