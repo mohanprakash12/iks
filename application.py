@@ -45,6 +45,14 @@ if uploaded_file:
     st.write('''### **⬇️ Download At-Risk CMember Id's**''')
     href = f'<a href="data:file/csv;base64,{b64}" download="at_risk_customerids.csv">Download csv file</a>'
     st.write(href, unsafe_allow_html=True)
+    
+st.subheader('sales')
+
+hist_values = np.histogram(
+    data[sales].dt.hour, bins=24, range=(0,24))[0]
+
+st.bar_chart(hist_values)
+
 
 
 # In[ ]:
