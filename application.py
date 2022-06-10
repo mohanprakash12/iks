@@ -21,8 +21,6 @@ def bg_colour_col (col):
                 else ''
              for i,x in col.iteritems()]
 
-df.style.apply(bg_colour_col)
-
 if uploaded_file:
     input_df = pd.read_csv(uploaded_file)
     st.write(
