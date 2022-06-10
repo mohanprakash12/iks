@@ -10,7 +10,7 @@ import base64
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
-image = Image.open('word-image)
+image = Image.open('image')
 
 st.image(image, caption='Enter any caption here')
 
