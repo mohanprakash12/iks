@@ -14,6 +14,15 @@ st.write('''# *customer payment Predictor*''')
   
 uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
 
+def bg_colour_col (col):
+    colour = '#ffff00'
+    return ['background-color: %s' % colour 
+                if col.name=='Total' or i==4   # color column `Total` or row `4`
+                else ''
+             for i,x in col.iteritems()]
+
+df.style.apply(bg_colour_col)
+
 if uploaded_file:
     input_df = pd.read_csv(uploaded_file)
     st.write(
