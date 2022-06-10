@@ -8,6 +8,11 @@ import matplotlib.pyplot as plt
 import pickle
 import base64
 from sklearn.preprocessing import StandardScaler
+from PIL import Image
+
+image = Image.open('word-image)
+
+st.image(image, caption='Enter any caption here')
 
 st.write('''# *customer payment Predictor*''')
   
