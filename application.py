@@ -49,7 +49,7 @@ if uploaded_file:
 st.subheader('sales')
 
 hist_values = np.histogram(
-    data[InvNeSUM].dt.hour, bins=24, range=(0,24))[0]
+    input_df[InvNeSUM], bins=24, range=(0,24))[0]
 
 st.bar_chart(hist_values)
 
