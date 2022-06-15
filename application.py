@@ -44,19 +44,19 @@ else:
         redicted_proba = rfm.predict_proba(X)
         y_preds = (predicted_proba [:,1] >= threshold).astype('int')
         op_list = []
-       for idx, Failed in enumerate(y_preds):
-           if Failed == 0:
-               op_list.append(input_df.CMemNo.iloc[idx])
-       st.write('''### Number of Potentially Churning Customers Payment''')
-       st.write('''There are **{} customers** at risk of Payment Failure.'''.format(len(op_list)))
+        for idx, Failed in enumerate(y_preds):
+             if Failed == 0:
+                 op_list.append(input_df.CMemNo.iloc[idx])
+        st.write('''### Number of Potentially Churning Customers Payment''')
+        st.write('''There are **{} customers** at risk of Payment Failure.'''.format(len(op_list)))
 
-       csv = pd.DataFrame(op_list).to_csv(index=False, header = False)
-       b64 = base64.b64encode(csv.encode()).decode()
-       st.write('''''')
-       st.write('''''')
-       st.write('''### **⬇️ Download At-Risk CMember Id's**''')
-       href = f'<a href="data:file/csv;base64,{b64}" download="at_risk_customerids.csv">Download csv file</a>'
-       st.write(href, unsafe_allow_html=True)
+        csv = pd.DataFrame(op_list).to_csv(index=False, header = False)
+        b64 = base64.b64encode(csv.encode()).decode()
+        st.write('''''')
+        st.write('''''')
+        st.write('''### **⬇️ Download At-Risk CMember Id's**''')
+        href = f'<a href="data:file/csv;base64,{b64}" download="at_risk_customerids.csv">Download csv file</a>'
+        st.write(href, unsafe_allow_html=True)
 
 
 # In[ ]:
