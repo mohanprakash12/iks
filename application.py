@@ -12,10 +12,8 @@ from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
 
-image = Image.open('App.jpg')
 dd_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
 st.sidebar.info('This app is created to predict Customer payment Failure')
-st.sidebar.image(image)
   
 uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
 
