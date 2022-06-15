@@ -25,8 +25,8 @@ if add_selectbox == "Online":
         
 
 else:
-        uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
-        input_df = pd.read_csv(uploaded_file)
+        Batch = st.file_uploader("Upload a CSV file", type="csv")
+        input_df = pd.read_csv(Batch)
         st.write(
                 '''
                 ### Input Data ({} Customers)
