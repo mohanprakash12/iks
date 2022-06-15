@@ -10,7 +10,7 @@ import base64
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
-model= pickle.load( open( "modelsy.pkl", "rb" ) )
+model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
 import preprocess
 
