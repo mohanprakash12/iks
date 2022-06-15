@@ -11,15 +11,11 @@ from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
-st.markdown(
-    <style>
-    .reportview-container {
-        background: url("https://www.google.com/search?q=the+af+group&rlz=1C1VDKB_en-GBGB994GB994&sxsrf=ALiCzsYHvIn-qT4LpgtNJsfck1PldujBzg:1655297098539&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiGj7mcvq_4AhUQXMAKHYwWAGoQ_AUoA3oECAMQBQ&biw=1366&bih=695&dpr=1#imgrc=Evmyp1QgDrP7zM")
-    }
-    </style>
-    unsafe_allow_html=True
-)
 
+image = Image.open('App.jpg')
+dd_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
+st.sidebar.info('This app is created to predict Customer payment Failure')
+st.sidebar.image(image)
   
 uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
 
