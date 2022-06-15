@@ -25,40 +25,27 @@ if add_selectbox == "Online":
         
 
 else:
-        Batch = st.file_uploader("Upload a CSV file", type="csv")
+        st.subheader("Dataset upload")
+        uploaded_file = st.file_uploader("Choose a file")
+        if uploaded_file is not None:
+            data = pd.read_csv(uploaded_file)
+            #Get overview of data
+            st.write(data.head())
+            st.markdown("<h3></h3>", unsafe_allow_html=True)
+            #Preprocess inputs
+            preprocess_df = preprocess(data, "Batch")
+            if st.button('Predict'):
+                #Get batch prediction
+                prediction = model.predict(preprocess_df)
+                prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
+                prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
+                                                    0:'No, the customer is happy with Telco Services.'})
 
-        input_df = pd.read_csv(Batch)
-        st.write(
-        '''
-        ### Input Data ({} Customers)
-        '''.format(input_df.shape[0])
-        )
-        st.dataframe(input_df)
-        st.write('')
-        rfm = pickle.load( open( "ran_forest_mod.p", "rb" ) )
+                st.markdown("<h3></h3>", unsafe_allow_html=True)
+                st.subheader('Prediction')
+                st.write(prediction_df)
+            
+if __name__ == '__main__':
+        main()
 
-        X = input_df.drop(labels = ['CMemNo'], axis = 1)
-
-        threshold = .22
-        y_preds = rfm.predict(X)
-        redicted_proba = rfm.predict_proba(X)
-        y_preds = (predicted_proba [:,1] >= threshold).astype('int')
-        op_list = []
-        for idx, Failed in enumerate(y_preds):
-             if Failed == 0:
-                 op_list.append(input_df.CMemNo.iloc[idx])
-        st.write('''### Number of Potentially Churning Customers Payment''')
-        st.write('''There are **{} customers** at risk of Payment Failure.'''.format(len(op_list)))
-
-        csv = pd.DataFrame(op_list).to_csv(index=False, header = False)
-        b64 = base64.b64encode(csv.encode()).decode()
-        st.write('''''')
-        st.write('''''')
-        st.write('''### **⬇️ Download At-Risk CMember Id's**''')
-        href = f'<a href="data:file/csv;base64,{b64}" download="at_risk_customerids.csv">Download csv file</a>'
-        st.write(href, unsafe_allow_html=True)
-
-
-# In[ ]:
-
-    
+        
