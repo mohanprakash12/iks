@@ -37,17 +37,7 @@ def main():
                 Zerosales= st.selectbox("is the invoice amount is zero if yes press 1:",("1","0"))
                 refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
                 
-                data={
-                        'sales':sales,
-                        'Zerosales':Zerosales,
-                        'refunded':refunded,
-                        'year of joning':yearofjoning,
-                        'month of joining':monthofjoining
-                        'day of joining':dayofjoining,
-                        'Town':Town,
-                        'MemberType':MemberType,
-                        'ProdCategory':ProductCategory
-                }
+               
                 features_df = pd.DataFrame.from_dict([data])
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.write('Overview of input is shown below')
