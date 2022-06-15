@@ -20,7 +20,7 @@ if add_selectbox == "Online":
         #Based on our optimal features selection
         st.subheader("data")
         Sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=11000, value=0)
-        Member Type = st.selectbox('Member Type:', ('Full', 'Associate','2 nd Account', 'other MemberType'))
+        MemberType = st.selectbox('Member Type:', ('Full', 'Associate','2 nd Account', 'other MemberType'))
   
 else Batch:
   uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
