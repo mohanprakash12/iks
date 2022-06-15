@@ -11,7 +11,6 @@ from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
-input_df = pd.read_csv(uploaded_file)
 
 
 add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
@@ -27,6 +26,7 @@ if add_selectbox == "Online":
 
 else:
         uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
+        input_df = pd.read_csv(uploaded_file)
         st.write(
                 '''
                 ### Input Data ({} Customers)
