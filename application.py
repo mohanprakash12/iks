@@ -44,8 +44,5 @@ else:
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.subheader('Prediction')
                 st.write(prediction_df)
-            
-if __name__ == '__main__':
-        main()
 
         
