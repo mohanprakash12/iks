@@ -12,7 +12,7 @@ from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
 
-dd_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
+add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
 st.sidebar.info('This app is created to predict Customer payment Failure')
 
 if add_selectbox == "Online":
