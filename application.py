@@ -11,6 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
+uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
 
 add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
 st.sidebar.info('This app is created to predict Customer payment Failure')
@@ -21,9 +22,9 @@ if add_selectbox == "Online":
         st.subheader("data")
         Sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=11000, value=0)
         MemberType = st.selectbox('Member Type:', ('Full', 'Associate','2 nd Account', 'other MemberType'))
-  
+        
+
 else:
-        uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
         input_df = pd.read_csv(uploaded_file)
         st.write(
                 '''
