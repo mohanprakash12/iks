@@ -12,16 +12,11 @@ from PIL import Image
 
 st.write('''# *customer payment Predictor*''')
 st.markdown(
-    """
     <style>
     .reportview-container {
         background: url("https://www.google.com/search?q=the+af+group&rlz=1C1VDKB_en-GBGB994GB994&sxsrf=ALiCzsYHvIn-qT4LpgtNJsfck1PldujBzg:1655297098539&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiGj7mcvq_4AhUQXMAKHYwWAGoQ_AUoA3oECAMQBQ&biw=1366&bih=695&dpr=1#imgrc=Evmyp1QgDrP7zM")
     }
-   .sidebar .sidebar-content {
-        background: url("https://www.google.com/search?q=the+af+group&rlz=1C1VDKB_en-GBGB994GB994&sxsrf=ALiCzsYHvIn-qT4LpgtNJsfck1PldujBzg:1655297098539&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiGj7mcvq_4AhUQXMAKHYwWAGoQ_AUoA3oECAMQBQ&biw=1366&bih=695&dpr=1#imgrc=Evmyp1QgDrP7zM")
-    }
     </style>
-    """,
     unsafe_allow_html=True
 )
 
