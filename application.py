@@ -20,7 +20,6 @@ def main():
         st.sidebar.info('This app is created to predict Customer payment Failure')
         
         if add_selectbox == "Online":
-        st.info("Input data below")
         #Based on our optimal features selection
         st.subheader("data")
         sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=110000, value=0)
