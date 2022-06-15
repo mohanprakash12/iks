@@ -10,19 +10,52 @@ import base64
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 
-st.write('''# *customer payment Predictor*''')
+model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
+import preprocess
 
-add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
-st.sidebar.info('This app is created to predict Customer payment Failure')
-
-if add_selectbox == "Online":
+def main():
+        st.write('''# *customer payment Predictor*''')
+        add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
+        st.sidebar.info('This app is created to predict Customer payment Failure')
+        
+        if add_selectbox == "Online":
         st.info("Input data below")
         #Based on our optimal features selection
         st.subheader("data")
-        Sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=11000, value=0)
-        MemberType = st.selectbox('Member Type:', ('Full', 'Associate','2 nd Account', 'other MemberType'))
+        sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=110000, value=0)
+        MemberType = st.selectbox('Member Type:', ('Full', 'Other MemberType', 'Associate', '2nd Account'))
+        ProductCategory = st.selectbox('ProductCategory:', ('Fixed & Broadband', 'Liquid', 'Agrochemicals', 'Other products','Charge card', 'General - Machinery', 'General - Supplies',
+       'Building Materials', 'Mobile', 'Non HH, mains gas, MOP',
+       'Fuel Cards'))
+        Town = st.selectbox('Town:', ('Thetford', 'Holt', 'Wisbech', 'Other Area', 'Norwich', 'Dereham',
+       'Kings Lynn', 'Lowestoft', 'Huntingdon', 'Diss', 'Beccles',
+       'Fakenham', 'Spalding', 'Bury St Edmunds', 'Colchester',
+       'Gt Yarmouth', 'Bungay', 'North Walsham', 'Wymondham',
+       'Great Yarmouth', 'Cambridge', 'Peterborough', 'Ely',
+       "King's Lynn", 'Attleborough', 'March', 'Swaffham',
+       'Downham Market'))
         
+        st.subheader("Member information")
+        year of joning = st.number_input('Member Joining Year',min_value=0, max_value=3000, value=0)
+        month of joining = st.number_input('Member Joining Month',min_value=0, max_value=12, value=0)
+        day of joining = st.number_input('Member Joining Day',min_value=0, max_value=31, value=0)
+        
+        st.subheader("other Information")
+        Zerosales= st.selectbox("is the invoice amount is zero if yes press 1:",("1","0"))
+        refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
+        
+        
+        
+
+        
+
+
+
+
+
+
+
 
 else:
         st.subheader("Dataset upload")
