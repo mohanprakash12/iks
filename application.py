@@ -22,7 +22,7 @@ if add_selectbox == "Online":
         Sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=11000, value=0)
         MemberType = st.selectbox('Member Type:', ('Full', 'Associate','2 nd Account', 'other MemberType'))
   
-else add_selectbox == "Batch":
+else:
   uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
     input_df = pd.read_csv(uploaded_file)
     st.write(
