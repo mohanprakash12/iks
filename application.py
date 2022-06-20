@@ -21,7 +21,7 @@ def main():
         
         if add_selectbox == "Online":
                 #Based on our optimal features selection
-                st.subheader("data")
+                st.subheader("DataFeed")
                 sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=110000, value=0)
                 MemberType = st.selectbox('Member Type:', ('Full', 'Other MemberType', 'Associate', '2nd Account'))
                 ProductCategory = st.selectbox('ProductCategory:', ('Fixed & Broadband', 'Liquid', 'Agrochemicals', 'Other products','Charge card', 'General - Machinery', 'General - Supplies',
