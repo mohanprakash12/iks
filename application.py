@@ -16,32 +16,28 @@ def main():
 	add_selectbox = st.sidebar.selectbox(
 	"How would you like to predict?",
 	("Online", "Batch"))
-	st.sidebar.info('This app is created to predict Customer Churn')
-	st.title("Predicting Customer Churn")
+	st.sidebar.info('This app is created to predict Customer payment failure')
+	st.title("Predicting Customer payment Failure")
 	if add_selectbox == 'Online':
-		state =st.selectbox('letter code of the US state of customer residence :',['','AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA','ID',\
-		'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV',\
-		'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV','WY'])
-		account_length=st.number_input('Number of months the customer has been with the current telco provider :' , min_value=0, max_value=240, value=0)
-		area_code=st.selectbox('"area_code_AAA" where AAA = 3 digit area code :' , ['','area_code_408', 'area_code_415', 'area_code_510'])
-		international_plan=st.selectbox('The customer has international plan :' , ['','yes', 'no'])
-		voice_mail_plan=st.selectbox('The customer has voice mail plan :' , ['','yes', 'no'])
-		number_vmail_messages=st.slider('Number of voice-mail messages. :' , min_value=0, max_value=60, value=0)
-		total_day_minutes=st.slider('Total minutes of day calls :' , min_value=0, max_value=360, value=100)
-		total_day_calls=st.slider('Total day calls :' , min_value=0, max_value=200, value=50)
-		total_eve_minutes=st.slider('Total minutes of evening calls :' , min_value=0, max_value=400, value=200)
-		total_eve_calls=st.slider('Total number of evening calls :' , min_value=0, max_value=200, value=100)
-		total_night_minutes=st.slider('Total minutes of night calls :' , min_value=0, max_value=400, value=200)
-		total_night_calls=st.slider('Total number of night calls :' , min_value=0, max_value=200, value=100)
-		total_intl_minutes=st.slider('Total minutes of international calls :' , min_value=0, max_value=60, value=0)
-		total_intl_calls=st.slider('Total number of international calls :' , min_value=0, max_value=20, value=0)
-		number_customer_service_calls=st.slider('Number of calls to customer service :' , min_value=0, max_value=10, value=0)
+		sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=110000, value=0)
+		MemberType = st.selectbox('Member Type:', ('Full', 'Other MemberType', 'Associate', '2nd Account'))
+		ProductCategory = st.selectbox('ProductCategory:', ('Fixed & Broadband', 'Liquid', 'Agrochemicals', 'Other products','Charge card', 'General - Machinery', 'General - Supplies',
+                     'Building Materials', 'Mobile', 'Non HH, mains gas, MOP','Fuel Cards'))
+
+		Town = st.selectbox('Town:', ('Thetford', 'Holt', 'Wisbech', 'Other Area', 'Norwich', 'Dereham','Kings Lynn', 'Lowestoft', 'Huntingdon', 'Diss', 
+					      'Beccles','Fakenham', 'Spalding', 'Bury St Edmunds', 'Colchester','Gt Yarmouth', 'Bungay', 'North Walsham', 'Wymondham',
+					      'Great Yarmouth', 'Cambridge', 'Peterborough', 
+					      'Ely',"King's Lynn", 'Attleborough', 'March', 'Swaffham','Downham Market'))
+		yearofjoning = st.number_input('Member Joining Year',min_value=0, max_value=3000, value=0)
+		monthofjoining = st.number_input('Member Joining Month',min_value=0, max_value=12, value=0)
+		dayofjoining = st.number_input('Member Joining Day',min_value=0, max_value=31, value=0)
+		Zerosales=st.slider('is the invoice amount is zero if yes 1' , min_value=0, max_value=1, value=1)
+		refunded=st.slider('is the invoice amount is in -values if yes press 1' , min_value=0, max_value=1, value=1)
+		
 		output=""
-		input_dict={'state':state,'account_length':account_length,'area_code':area_code,'international_plan':international_plan,'voice_mail_plan':voice_mail_plan\
-		,'number_vmail_messages':number_vmail_messages,'total_day_minutes':total_day_minutes,'total_day_calls':total_day_calls\
-		,'total_eve_minutes':total_eve_minutes,'total_eve_calls':total_eve_calls,'total_night_minutes':total_night_minutes\
-		,'total_night_calls':total_night_calls,'total_intl_minutes':total_intl_minutes,'total_intl_calls':total_intl_calls\
-		,'number_customer_service_calls':number_customer_service_calls}
+		input_dict={'sales':sales,'MemberType':MemberType,'ProductCategory':ProductCategory,'Town':Town,'yearofjoning':yearofjoning\
+		,'monthofjoining':monthofjoining,'dayofjoining':dayofjoining,'Zerosales':Zerosales\
+		,'refunded':refunded}
 		input_df = pd.DataFrame([input_dict])
 		if st.button("Predict"):
 			output = predict(model=model, input_df=input_df)
