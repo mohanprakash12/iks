@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import pickle
 import base64
 from sklearn.preprocessing import StandardScaler
+from sklearn import preprocessing
 from PIL import Image
 
 model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
