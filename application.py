@@ -1,49 +1,56 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-import numpy as np
+from pycaret.classification import load_model, predict_model
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import pickle
-import base64
-from sklearn.preprocessing import StandardScaler
-from PIL import Image
+import numpy as np
+model = load_model('model')
 
-model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
+def predict(model, input_df):
+	predictions_df = predict_model(estimator=model, data=input_df)
+	predictions = predictions_df['Label'][0]
+	return predictions
 
 
 def main():
-        st.write('''# *customer payment Predictor*''')
-        add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
-        st.sidebar.info('This app is created to predict Customer payment Failure')
-        
-        if add_selectbox == "Online":
-                #Based on our optimal features selection
-                st.subheader("DataFeed")
-                sales = st.number_input('The amount charged to the customer monthly', min_value=0, max_value=110000, value=0)
-                MemberType = st.selectbox('Member Type:', ('Full', 'Other MemberType', 'Associate', '2nd Account'))
-                ProductCategory = st.selectbox('ProductCategory:', ('Fixed & Broadband', 'Liquid', 'Agrochemicals', 'Other products','Charge card', 'General - Machinery', 'General - Supplies',
-                     'Building Materials', 'Mobile', 'Non HH, mains gas, MOP','Fuel Cards'))
-                Town = st.selectbox('Town:', ('Thetford', 'Holt', 'Wisbech', 'Other Area', 'Norwich', 'Dereham','Kings Lynn', 'Lowestoft', 'Huntingdon', 'Diss', 'Beccles','Fakenham', 'Spalding', 'Bury St Edmunds', 'Colchester','Gt Yarmouth', 'Bungay', 'North Walsham', 'Wymondham','Great Yarmouth', 'Cambridge', 'Peterborough', 'Ely',"King's Lynn", 'Attleborough', 'March', 'Swaffham','Downham Market'))
-        
-                st.subheader("Member information")
-                yearofjoning = st.number_input('Member Joining Year',min_value=0, max_value=3000, value=0)
-                monthofjoining = st.number_input('Member Joining Month',min_value=0, max_value=12, value=0)
-                dayofjoining = st.number_input('Member Joining Day',min_value=0, max_value=31, value=0)
-        
-                st.subheader("other Information")
-                Zerosales= st.selectbox("is the invoice amount is zero if yes press 1:",("1","0"))
-                refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
-                
-                input_df = pd.DataFrame([input_dict])
-                if st.button('Predict'):
-                        output = predict(model=model, input_df=input_df)
-                        output = str(output)
-                st.success('churn :'.format(output))
-  
-                                
-        else add_selectbox == 'Batch':
+	from PIL import Image
+	image = Image.open('images/icone.png')
+	image2 = Image.open('images/image.png')
+	st.image(image,use_column_width=False)
+	add_selectbox = st.sidebar.selectbox(
+	"How would you like to predict?",
+	("Online", "Batch"))
+	st.sidebar.info('This app is created to predict Customer Churn')
+	st.sidebar.image(image2)
+	st.title("Predicting Customer Churn")
+	if add_selectbox == 'Online':
+		state =st.selectbox('letter code of the US state of customer residence :',['','AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA','ID',\
+		'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV',\
+		'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV','WY'])
+		account_length=st.number_input('Number of months the customer has been with the current telco provider :' , min_value=0, max_value=240, value=0)
+		area_code=st.selectbox('"area_code_AAA" where AAA = 3 digit area code :' , ['','area_code_408', 'area_code_415', 'area_code_510'])
+		international_plan=st.selectbox('The customer has international plan :' , ['','yes', 'no'])
+		voice_mail_plan=st.selectbox('The customer has voice mail plan :' , ['','yes', 'no'])
+		number_vmail_messages=st.slider('Number of voice-mail messages. :' , min_value=0, max_value=60, value=0)
+		total_day_minutes=st.slider('Total minutes of day calls :' , min_value=0, max_value=360, value=100)
+		total_day_calls=st.slider('Total day calls :' , min_value=0, max_value=200, value=50)
+		total_eve_minutes=st.slider('Total minutes of evening calls :' , min_value=0, max_value=400, value=200)
+		total_eve_calls=st.slider('Total number of evening calls :' , min_value=0, max_value=200, value=100)
+		total_night_minutes=st.slider('Total minutes of night calls :' , min_value=0, max_value=400, value=200)
+		total_night_calls=st.slider('Total number of night calls :' , min_value=0, max_value=200, value=100)
+		total_intl_minutes=st.slider('Total minutes of international calls :' , min_value=0, max_value=60, value=0)
+		total_intl_calls=st.slider('Total number of international calls :' , min_value=0, max_value=20, value=0)
+		number_customer_service_calls=st.slider('Number of calls to customer service :' , min_value=0, max_value=10, value=0)
+		output=""
+		input_dict={'state':state,'account_length':account_length,'area_code':area_code,'international_plan':international_plan,'voice_mail_plan':voice_mail_plan\
+		,'number_vmail_messages':number_vmail_messages,'total_day_minutes':total_day_minutes,'total_day_calls':total_day_calls\
+		,'total_eve_minutes':total_eve_minutes,'total_eve_calls':total_eve_calls,'total_night_minutes':total_night_minutes\
+		,'total_night_calls':total_night_calls,'total_intl_minutes':total_intl_minutes,'total_intl_calls':total_intl_calls\
+		,'number_customer_service_calls':number_customer_service_calls}
+		input_df = pd.DataFrame([input_dict])
+		if st.button("Predict"):
+			output = predict(model=model, input_df=input_df)
+			output = str(output)
+		st.success('Churn : {}'.format(output))
+	if add_selectbox == 'Batch':
 		file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
 		if file_upload is not None:
 			data = pd.read_csv(file_upload)
@@ -51,24 +58,3 @@ def main():
 			st.write(predictions)
 if __name__ == '__main__':
 	main()
-                                
-                        
-                        
-                        
-                        
-        
-        
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-        
