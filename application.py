@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import pickle
 import base64
 from sklearn.preprocessing import StandardScaler
-from sklearn import preprocessing
 from PIL import Image
 
 model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
@@ -37,47 +36,27 @@ def main():
                 Zerosales= st.selectbox("is the invoice amount is zero if yes press 1:",("1","0"))
                 refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
                 
+                input_df = pd.DataFrame([input_dict])
                
-                
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.write('Overview of input is shown below')
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 
-                
-                preprocess_df = preprocesing(features_df, 'Online')
-                
-                prediction = model.predict(preprocess_df)
-                
+     
                 if st.button('Predict'):
-                        if prediction == 1:
-                                st.warning('Yes, the customer payment is not at rish')
-                        else:
-                                st.success('The customer payment is at risk.')
+                        output = predict(model=model, input_df=input_df)
+                        output = str(output)
+                st.success('churn :'.format(output))
+  
                                 
-                                
-        else:
-                st.subheader("Dataset upload")
-                uploaded_file = st.file_uploader("Choose a file")
-                if uploaded_file is not None:
-                        data = pd.read_csv(uploaded_file)
-                        #Get overview of data
-                        st.write(data.head())
-                        st.markdown("<h3></h3>", unsafe_allow_html=True)
-                        #Preprocess inputs
-                        preprocess_df = preprocess(data, "Batch")
-                        if st.button('Predict'):
-                                #Get batch prediction
-                                prediction = model.predict(preprocess_df)
-                                prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
-                                prediction_df = prediction_df.replace({1:'Yes, the customer will terminate the service.', 
-                                                    0:'No, the customer is happy with Telco Services.'})
-
-                        st.markdown("<h3></h3>", unsafe_allow_html=True)
-                        st.subheader('Prediction')
-                        st.write(prediction_df)
-    
+        if add_selectbox == 'Batch':
+		file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+		if file_upload is not None:
+			data = pd.read_csv(file_upload)
+			predictions = predict_model(estimator=model,data=data)
+			st.write(predictions)
 if __name__ == '__main__':
-        main()
+	main()
                                 
                         
                         
