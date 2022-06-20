@@ -13,7 +13,6 @@ from PIL import Image
 model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
 from sklearn import preprocesing
-s
 def main():
         st.write('''# *customer payment Predictor*''')
         add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
