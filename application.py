@@ -38,7 +38,7 @@ def main():
                 refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
                 
                
-                features_df = pd.DataFrame.from_dict([data])
+                features_df = pd.DataFrame.from_dict([datas])
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.write('Overview of input is shown below')
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
