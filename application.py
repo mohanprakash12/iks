@@ -43,7 +43,7 @@ def main():
                 st.success('churn :'.format(output))
   
                                 
-        if add_selectbox == 'Batch':
+        else add_selectbox == 'Batch':
 		file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
 		if file_upload is not None:
 			data = pd.read_csv(file_upload)
