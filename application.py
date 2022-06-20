@@ -12,7 +12,7 @@ from PIL import Image
 
 model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
-import preprocess
+import preprocessing
 
 def main():
         st.write('''# *customer payment Predictor*''')
