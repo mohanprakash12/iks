@@ -2,7 +2,7 @@ from pycaret.classification import load_model, predict_model
 import streamlit as st
 import pandas as pd
 import numpy as np
-model = load_model('model')
+model = load_model('ran_forest_mod.p')
 
 def predict(model, input_df):
 	predictions_df = predict_model(estimator=model, data=input_df)
