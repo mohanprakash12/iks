@@ -5,4 +5,5 @@ seaborn
 joblib  
 streamlit
 scikit-learn
-
+pycaret
+Pillow
