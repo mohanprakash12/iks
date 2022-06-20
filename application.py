@@ -12,8 +12,8 @@ from PIL import Image
 
 model= pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
-from sklearn import preprocessing
-
+from sklearn import preprocesing
+s
 def main():
         st.write('''# *customer payment Predictor*''')
         add_selectbox = st.sidebar.selectbox("How would you like to predict?", ("Online", "Batch"))
@@ -42,9 +42,9 @@ def main():
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.write('Overview of input is shown below')
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
-                st.dataframe(features_df)
                 
-                preprocess_df = preprocess(features_df, 'Online')
+                
+                preprocess_df = preprocesing(features_df, 'Online')
                 
                 prediction = model.predict(preprocess_df)
                 
