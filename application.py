@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-model = load_model('ran_forest_mod.p')
+import pickle
+import base64
+from sklearn.preprocessing import StandardScaler
+model = pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
 def predict(model, input_df):
 	predictions_df = predict_model(estimator=model, data=input_df)
@@ -10,10 +13,6 @@ def predict(model, input_df):
 
 
 def main():
-	from PIL import Image
-	image = Image.open('images/icone.png')
-	image2 = Image.open('images/image.png')
-	st.image(image,use_column_width=False)
 	add_selectbox = st.sidebar.selectbox(
 	"How would you like to predict?",
 	("Online", "Batch"))
