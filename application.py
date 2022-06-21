@@ -72,7 +72,7 @@ def main():
 		refunded=st.selectbox("is the invoice amount is in -values if yes press 1:",("1","0"))
 		output=""
 		input_dict={'SuppID':SuppID,'sales':sales,'MemberType':MemberType,'ProductCategory':ProductCategory,'yearofjoning':yearofjoning,'monthofjoining':monthofjoining,'dayofjoining':dayofjoining,'Zerosales':Zerosales,'refunded':refunded}
-		input_dict=pd.DataFrame([input_dict])
+		input_df=pd.DataFrame([input_dict])
 		if st.button("Predict"):
 			output = predict(model=model, input_df=input_df)
 			output = str(output)
