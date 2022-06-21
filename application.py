@@ -2,9 +2,6 @@ from pycaret.classification import load_model, predict_model
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
-import base64
-from sklearn.preprocessing import StandardScaler
 model = pickle.load( open( "ran_forest_mod.p", "rb" ) )
 
 def predict(model, input_df):
@@ -36,8 +33,8 @@ def main():
 		refunded=st.slider('is the invoice amount is in -values if yes press 1' , min_value=0, max_value=1, value=1)
 		
 		output=""
-		input_dict={'sales':sales,'MemberType':MemberType,'ProductCategory':ProductCategory,'Town':Town,'yearofjoning':yearofjoning\
-		,'monthofjoining':monthofjoining,'dayofjoining':dayofjoining,'Zerosales':Zerosales\
+		input_dict={'sales':sales,'MemberType':MemberType,'ProductCategory':ProductCategory,'Town':Town,'yearofjoning':yearofjoning
+		,'monthofjoining':monthofjoining,'dayofjoining':dayofjoining,'Zerosales':Zerosales
 		,'refunded':refunded}
 		input_df = pd.DataFrame([input_dict])
 		if st.button("Predict"):
