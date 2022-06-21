@@ -1,47 +1,42 @@
 from pycaret.classification import load_model, predict_model
-import numpy as np
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import pickle
-import base64
-from sklearn.preprocessing import StandardScaler
+import numpy as np
+model = pickle.load( open( "rand_forest_mod.p", "rb" ) )
 
-st.write('''# *Customer Payment Predictor*''')
-  
-uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
+def predict(model, input_df):
+	predictions_df = predict_model(estimator=model, data=input_df)
+	predictions = predictions_df['Label'][0]
+	return predictions
 
-if uploaded_file:
-    input_df = pd.read_csv(uploaded_file)
-    st.write(
-    '''
-    ### Input Data ({} Customers)
-    '''.format(input_df.shape[0])
-    )
-    st.dataframe(input_df)
-    st.write('')
-    rfm = pickle.load( open( "rand_forest_mo.p", "rb" ) )
-
-    X = input_df.drop(labels = ['CMemNo'], axis = 1)
-
-    threshold = .22
-    y_preds = rfm.predict(X)
-    predicted_proba = rfm.predict_proba(X)
-    y_preds = (predicted_proba [:,1] >= threshold).astype('int')
-    op_list = []
-    for idx, Failed in enumerate(y_preds):
-        if Failed == 0:
-            op_list.append(input_df.CMemNo.iloc[idx])
-    st.write('''### Number of Potentially Churning Customers Payment''')
-    st.write('''There are **{} customers** at risk of Payment Failure.'''.format(len(op_list)))
-
-    csv = pd.DataFrame(op_list).to_csv(index=False, header = False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    st.write('''''')
-    st.write('''''')
-    st.write('''### **⬇️ Download At-Risk CMember Id's**''')
-    href = f'<a href="data:file/csv;base64,{b64}" download="at_risk_customerids.csv">Download csv file</a>'
-    st.write(href, unsafe_allow_html=True)
-
-
-# In[ ]:
+def main():
+	from PIL import Image
+	add_selectbox = st.sidebar.selectbox(
+	"How would you like to predict?",
+	("Online", "Batch"))
+	st.sidebar.info('This app is created to predict Customer Churn')
+	st.sidebar.image(image2)
+	st.title("Predicting Customer Churn")
+	if add_selectbox == 'Online':
+		state =st.selectbox('letter code of the US state of customer residence :',['','AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA','ID',\
+		'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV',\
+		'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV','WY'])
+		output=""
+		input_dict={'state':state,'account_length':account_length,'area_code':area_code,'international_plan':international_plan,'voice_mail_plan':voice_mail_plan\
+		,'number_vmail_messages':number_vmail_messages,'total_day_minutes':total_day_minutes,'total_day_calls':total_day_calls\
+		,'total_eve_minutes':total_eve_minutes,'total_eve_calls':total_eve_calls,'total_night_minutes':total_night_minutes\
+		,'total_night_calls':total_night_calls,'total_intl_minutes':total_intl_minutes,'total_intl_calls':total_intl_calls\
+		,'number_customer_service_calls':number_customer_service_calls}
+		input_df = pd.DataFrame([input_dict])
+		if st.button("Predict"):
+			output = predict(model=model, input_df=input_df)
+			output = str(output)
+		st.success('Failed : {}'.format(output))
+	if add_selectbox == 'Batch':
+		file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+		if file_upload is not None:
+			data = pd.read_csv(file_upload)
+			predictions = predict_model(estimator=model,data=data)
+			st.write(predictions)
+if __name__ == '__main__':
+	main()
