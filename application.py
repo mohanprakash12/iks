@@ -20,7 +20,7 @@ if uploaded_file:
     )
     st.dataframe(input_df)
     st.write('')
-    rfm = pickle.load( open( "modelsly", "rb" ) )
+    rfm = pickle.load( open( "rand_forest_mo.p", "rb" ) )
 
     X = input_df.drop(labels = ['CMemNo'], axis = 1)
 
