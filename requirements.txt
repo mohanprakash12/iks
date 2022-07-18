@@ -1,9 +1,6 @@
 
 pandas
 numpy
-seaborn
 joblib  
 streamlit
-scikit-learn
-pycaret
-Pillow
+transformers
