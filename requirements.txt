@@ -5,4 +5,3 @@ seaborn
 joblib  
 streamlit
 transformers
-tensorflow
