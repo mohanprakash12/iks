@@ -4,3 +4,5 @@ numpy
 joblib  
 streamlit
 transformers
+tensorflow
+pytorch
