@@ -3,7 +3,7 @@ from transformers import pipeline
 
 option = st.selectbox(
     "Select an Option", 
-    ["Sentiment Analysis",])
+    ["Sentiment Analysis","text"])
 
 if option == "Sentiment Analysis":
     text = st.text_area(label="Enter text")
