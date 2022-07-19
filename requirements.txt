@@ -6,3 +6,4 @@ joblib
 streamlit
 transformers
 datetime
+plotly
